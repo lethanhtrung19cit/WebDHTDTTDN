@@ -1,0 +1,289 @@
+﻿@model IEnumerable<DuAnQLNCKH.Models.TopicOfLecture>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var topicOfStudents = (List<DuAnQLNCKH.Models.TopicOfStudent>)ViewBag.listTopicOfStudent;
+    var topicOfLectures = (List<DuAnQLNCKH.Models.TopicOfLecture>)ViewBag.listTopicOfLecture;
+
+}
+<script src="~/Scripts/controller/StatisticController.js"></script>
+<style>
+    table, th, td {
+        border: 1px solid black;
+    }
+</style>
+<div class="tabs">
+    <div class="tab-nav-wrapper">
+        <ul>
+            <li><a href="#tab1">Đề tài giảng viên</a></li>
+            <li><a href="#tab2">Đề tài sinh viên</a></li>
+
+        </ul>
+    </div>
+    
+    <div class="tab-content-wrapper" style="width: 1200px">
+        <div id="tab1" class="tab-content" style="display:none;">
+            <div>
+
+                <input id="Search" type="text" class="form-control" placeholder="Nhập tên đề tài giảng viên" name="name" />
+            </div>
+            <div>
+                <h3> Tiêu chí thống kê </h3>
+            </div>
+            <div class="row" style="margin-bottom:20px">
+
+                <div class="col-md-2">
+                    Từ ngày
+                    <input id="DateSt" type="date" value="2020-11-11"/>
+                </div>
+                <div class="col-md-2">
+                    Đến ngày
+                    <input id="DateEnd" type="date"  value="@DateTime.Today.ToString()"/>
+                </div>
+
+                @using (Html.BeginForm("ExportExcel", "Statistic", FormMethod.Post))
+                {
+                    <div class="form-group">
+                        <input id="IdPa" name="IdPa" type="hidden" value="1" />
+                    </div>
+                    <div class="form-group">
+                        <input id="DateSt1" name="DateSt" type="hidden" value="1" />
+                    </div>
+                    <div class="form-group">
+                        <input id="DateEnd1" name="DateEnd" type="hidden" value="1" />
+                    </div>
+                    <div class="form-group">
+                        <input id="ExportToExcel" type="submit" value="Export to Excel" />
+                    </div>
+                }
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    @if (ViewBag.listtype != null)
+                    {
+
+                        @Html.DropDownList("IdTy", ViewBag.listtype as SelectList, "--Tất cả loại đề tài--", new { @class = "form-control" })
+
+                    }
+                </div>
+                <div class="col-md-2">
+                    @Html.DropDownList("IdP", new SelectList(" "), "--Tất cả loại điểm--", new { @class = "form-control"})
+                </div>
+            </div>
+            <input style="margin:20px 0 20px 0" class="btn btn-primary" id="buttonSearch" type="button" value="Tìm kiếm"/>
+            <table style="text-align:center; border-collapse:collapse; ">
+                <tr style="background:#3862dc; color:white">
+                    <th>
+                        Mã đề tài
+                    </th>
+                    <th style="width:100px">
+                        Tên đề tài
+                    </th>
+                    <th>
+                        Mã giảng viên
+                    </th>
+                    <th>
+                        Mã điểm
+                    </th>
+                    <th>
+                        Bắt đầu
+                    </th>
+                    <th>
+                        Thời gian
+                    </th>
+                    <th>
+                        Kinh phí
+                    </th>
+                    <th>
+                        Trạng Thái
+                    </th>
+                    <th>
+                        Progress
+                    </th>
+
+                </tr>
+
+                @foreach (var deTaiGV in topicOfLectures)
+                {
+
+                    <tr class="Search" id="lecture">
+                        <td>
+
+                            @deTaiGV.IdTp
+
+
+                        </td>
+                        <td class="nametd" style="width:100px">
+
+                            @deTaiGV.Name
+
+                        </td>
+                        <td>
+
+                            @deTaiGV.IdLe
+
+
+                        </td>
+                        <td class="IdP">@deTaiGV.IdP</td>
+                        <td val class="Year"> 
+                            <input class="Year1" value="@deTaiGV.DateSt.ToString("yyyy/MM/dd")" type="hidden"/>
+                        @deTaiGV.DateSt.ToString("dd/MM/yyyy")
+                        </td>
+                        
+                        <td>
+
+                            @deTaiGV.Times
+
+                        </td>
+                        <td>
+
+                            @deTaiGV.Expense
+
+                        </td>
+                        <td>
+
+                            @deTaiGV.Status
+
+                        </td>
+                        <td>
+
+                            @deTaiGV.Progress
+
+                        </td>
+
+
+
+                    </tr>
+
+                }
+
+
+
+            </table>
+        </div>
+        <div id="tab2" class="tab-content" style="display:none;">
+            <div class="row" style="margin-bottom:20px">
+                <div style="margin-left:620px; padding-top:8px" class="col-md-1">
+
+                    Tìm kiếm
+                </div>
+                <div class="col-md-3">
+
+                    <input id="SearchStudent" type="text" class="form-control" placeholder="Nhập tên đề tài sinh viên" name="name" />
+                </div>
+
+            </div>
+            <table width="1000px" style="text-align:center">
+                <tr>
+                    <th>
+                        Mã đề tài
+                    </th>
+                    <th>
+                        Tên đề tài
+                    </th>
+                    <th>
+                        Tên sinh viên
+                    </th>
+                    <th>
+                        Mã sinh viên
+                    </th>
+                    <th>
+                        Email
+                    </th>
+                    <th>
+                        Mã điểm
+                    </th>
+                    <th>
+                        Bắt đầu
+                    </th>
+                    <th>
+                        Thời gian
+                    </th>
+                    <th>
+                        Kinh phí
+                    </th>
+                    <th>
+                        Trạng Thái
+                    </th>
+                    <th>
+                        Progress
+                    </th>
+
+                </tr>
+
+                @foreach (var topicOfStudent in topicOfStudents)
+                {
+
+                    <tr class="Searchstudent">
+                        <td>
+
+                            @topicOfStudent.IdP
+
+
+                        </td>
+                        <td class="namestudent" style="width:100px">
+
+                            @topicOfStudent.Name
+
+                        </td>
+                        <td>
+
+                            @topicOfStudent.NameSt
+
+
+                        </td>
+                        <td>
+
+                            @topicOfStudent.IdSV
+
+
+                        </td>
+                        <td>
+
+                            @topicOfStudent.Emmail
+
+                        </td>
+                        <td>
+
+                            @topicOfStudent.IdP
+
+                        </td>
+                        <td>
+
+                            @topicOfStudent.DateSt.ToString("dd/MM/yyyy")
+
+                        </td>
+                        <td>
+
+                            @topicOfStudent.Times
+
+                        </td>
+                        <td>
+
+                            @topicOfStudent.Expense
+
+                        </td>
+                        <td>
+
+                            @topicOfStudent.Status
+
+                        </td>
+                        <td>
+
+                            @topicOfStudent.Progress
+
+                        </td>
+
+                    </tr>
+
+                }
+
+
+
+            </table>
+        </div>
+
+    </div>
+</div>
+
+ 

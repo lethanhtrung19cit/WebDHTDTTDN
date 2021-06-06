@@ -1,0 +1,65 @@
+﻿@model IEnumerable<DuAnQLNCKH.Models.TopicOfStudent>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<style>
+    table td, th {
+        padding: 8px;
+        border: 1px solid black;
+    }
+    
+</style>
+<table width="1000px" style="text-align:center">
+
+    <tr style="background: #4747b1">
+
+        <th>
+            Mã đề tài
+        </th>
+        <th>Tên đề tài</th>
+        <th> Tên sinh viên </th>
+        <th> Mã sinh viên </th>
+        <th>Email</th>
+        <th>
+            Mã điểm
+
+        </th>
+        <th>  Ngày bắt đầu      </th>
+        <th>
+            Thời gian thực hiện
+        </th>
+        <th>
+            Chi phí
+        </th>
+        <th>
+            Trạng thái
+        </th>
+        <th>
+            Tiến trình
+        </th>
+
+
+    </tr>
+    
+    @foreach (var item in Model)
+    {
+
+        <tr>
+            <td>@item.IdTp</td>            
+            <td width="100px">@item.Name</td>          
+            <td> @item.NameSt </td>
+            <td> @item.IdSV </td>
+            <td> @item.Emmail </td>
+            <td>@item.IdP</td>
+            <td>@item.DateSt.ToString("dd/MM/yyyy")</td>
+            <td>@item.Times</td>
+            <td>@item.Expense</td>
+            <td>@item.Status</td>
+            <td>@item.Progress</td>
+   
+        </tr>
+    }
+</table>

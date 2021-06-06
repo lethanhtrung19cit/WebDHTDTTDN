@@ -1,0 +1,80 @@
+﻿@model DuAnQLNCKH.Models.Notification
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var listNo = (List<DuAnQLNCKH.Models.FileNotifiModel>)ViewBag.listNoti;
+    var noti = (List<DuAnQLNCKH.Models.Notification>)ViewBag.Notifications;
+
+}
+<div class="page-title">
+    <span class="ums-icon-30 ums-icon-notify "></span>
+    <strong>THÔNG BÁO</strong>
+</div>
+<hr />
+<div class="row-cols-lg-12">
+    @foreach (var item in noti)
+    {
+        var url = "/thong-bao/" + @item.Title + "-" + @item.IdNo;
+        <li>
+            <a id="" href="@url"> @item.Title</a><small>[@item.DateCreat]</small>
+        </li>
+     }
+</div>
+
+<div id="showmodal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <h4 class="modal-title">Thêm mới thông báo</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            @using (Html.BeginForm("CreateNotifi", "Notification", FormMethod.Post, new { @class = "form - horizontal", enctype = "multipart/form-data" }))
+            {
+                <div class="modal-body">
+                    <div class="form-group">
+                        @Html.LabelFor(Model => Model.DateCreat)
+                        
+                        @DateTime.Now.ToString("dd/MM/yyyy")
+                    </div>
+                    <div class="form-group">
+                        @Session["UserName"]
+
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(Model => Model.Title)
+
+
+                        @Html.TextBox("Title", null, new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(Model => Model.Content)
+                        @Html.TextBox("Content", null, new { @class = "form-control" })
+
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(Model => Model.FileName)
+
+                        <input type="file" id="files" name="files" required />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-primary" value="Lưu" />
+                </div>
+            }
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<button id='addtype' class="btn btn-primary" data-toggle="modal" data-target="#showmodal">Thêm mới</button>
+
+
+
+
+ 
+
+
+
+

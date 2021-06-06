@@ -1,0 +1,139 @@
+﻿@model IEnumerable<DuAnQLNCKH.Models.TopicOfLectureView>
+@{
+    ViewBag.Title = "listextension";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    //var listextension = (List<DuAnQLNCKH.Models.extension>)ViewBag.listextension;
+
+}
+<style>
+    table td, th{
+        padding:8px;
+    }
+
+</style>
+<table width="1000px" style="text-align:center">
+
+    <tr>
+     
+        <th>
+            Mã đề tài
+        </th>
+        <th>Mã giảng viên</th>
+        <th>
+            Tên đề tài
+
+        </th>
+        <th>
+            Mã điểm
+
+        </th>
+        <th>  Ngày bắt đầu      </th>
+        <th>
+            Thời gian thực hiện
+        </th>
+        <th>
+            Chi phí
+        </th>
+        <th>
+            Trạng thái
+        </th>
+        <th>
+            Tiến trình
+        </th>
+        <th> Thời gian gia hạn </th>
+
+    </tr>
+    @foreach (var item in Model)
+    {
+        
+        <tr id="@item.extension.IdEx">
+            <td>@item.topicOfLecture.IdTp</td>
+            <td>@item.topicOfLecture.IdLe</td>
+            <td width="100px">@item.topicOfLecture.Name</td>
+            <td>@item.topicOfLecture.IdP</td>
+            <td>@item.topicOfLecture.DateSt</td>
+            <td>@item.topicOfLecture.Times</td>
+            <td>@item.topicOfLecture.Expense</td>
+            <td>@item.topicOfLecture.Status</td>
+            <td>@item.topicOfLecture.Progress</td>
+            <td>@item.extension.Times</td>
+            <td>
+                
+                @{
+                    var idtp =(String) @item.extension.IdTp; 
+                }
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" onclick="GhBtnClicked(@item.extension.IdEx, @item.extension.Times, '@idtp')">Gia hạn</button>
+
+            </td>
+        </tr>
+    }
+</table>
+<script>
+
+    function GhBtnClicked(IdEx, Times, IdTp) {
+
+
+
+        //var times = $('td#Times').data().value;
+        //var idtp = $('td#IdTp').data().value;
+
+        var row = $('#' + IdEx);
+
+        row.remove();
+
+        
+        
+        $.ajax({
+
+            type: "POST",
+            url: "/TopicOfLecture/extension/",
+            data: { Times: Times, IdTp: IdTp, IdEx: IdEx },
+            dataType: "json",
+            success: function () {
+                alert('sucess');
+            }
+
+        });
+
+    };
+    function DelBtnClicked() {
+
+
+        var ele = event.srcElement;
+        var id = $(ele).data('id');
+        var row = $('#' + id);
+
+        $.ajax({
+            type: "POST",
+            url: "/TopicOfLecture/Delete/",
+            data: { IdTp: id },
+
+            dataType: "json",
+            success: function () {
+
+                row.remove();
+            }
+        });
+
+
+    }
+    function XdBtnsvClicked() {
+
+        var ele = event.srcElement;
+        var id = $(ele).data('id');
+        var row = $('#' + id);
+        row.remove();
+        $.ajax({
+            type: "POST",
+            url: "/TopicOfLecture/xetduyetsv/",
+            data: { IdTp: id },
+
+            dataType: "json",
+            success: function () {
+
+            }
+
+        });
+
+    };
+</script>

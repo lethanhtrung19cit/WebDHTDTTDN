@@ -1,0 +1,374 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="nckh_dhdnModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Account">
+    <Key>
+      <PropertyRef Name="UserName" />
+    </Key>
+    <Property Name="UserName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PassWord" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+    <Property Name="Access" Type="Int32" />
+    <NavigationProperty Name="Information" Relationship="Self.FK__Informati__IdKho__30F848ED" FromRole="Account" ToRole="Information" />
+  </EntityType>
+  <EntityType Name="Department">
+    <Key>
+      <PropertyRef Name="IdKhoa" />
+    </Key>
+    <Property Name="IdKhoa" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Information" Relationship="Self.FK__Informati__IdKho__31EC6D26" FromRole="Department" ToRole="Information" />
+  </EntityType>
+  <EntityType Name="DetailStatementLe">
+    <Key>
+      <PropertyRef Name="IdDtST" />
+    </Key>
+    <Property Name="IdDtST" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdSt" Type="Int32" />
+    <Property Name="IdTp" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Times" Type="Int32" />
+    <Property Name="Status" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="TopicOfLecture" Relationship="Self.FK__DetailSta__Statu__3F466844" FromRole="DetailStatementLe" ToRole="TopicOfLecture" />
+    <NavigationProperty Name="Statement" Relationship="Self.FK__DetailStat__IdSt__403A8C7D" FromRole="DetailStatementLe" ToRole="Statements" />
+  </EntityType>
+  <EntityType Name="DetailStatementSt">
+    <Key>
+      <PropertyRef Name="IdDtST" />
+    </Key>
+    <Property Name="IdDtST" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdSt" Type="Int32" />
+    <Property Name="IdTp" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Times" Type="Int32" />
+    <Property Name="Status" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="TopicOfStudent" Relationship="Self.FK__DetailSta__Statu__4D94879B" FromRole="DetailStatementSt" ToRole="TopicOfStudent" />
+    <NavigationProperty Name="Statement" Relationship="Self.FK__DetailStat__IdSt__4E88ABD4" FromRole="DetailStatementSt" ToRole="Statements" />
+  </EntityType>
+  <EntityType Name="Extension">
+    <Key>
+      <PropertyRef Name="IdEx" />
+    </Key>
+    <Property Name="IdEx" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdTp" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Times" Type="Int32" />
+    <NavigationProperty Name="TopicOfLecture" Relationship="Self.FK__Extension__Times__5165187F" FromRole="Extension" ToRole="TopicOfLecture" />
+  </EntityType>
+  <EntityType Name="ImgObj">
+    <Key>
+      <PropertyRef Name="FileId" />
+    </Key>
+    <Property Name="FileId" Type="Int32" Nullable="false" />
+    <Property Name="FileName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="FileContentType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Information">
+    <Key>
+      <PropertyRef Name="IdLe" />
+    </Key>
+    <Property Name="IdLe" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="UserName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Phone" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+    <Property Name="IdKhoa" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Account" Relationship="Self.FK__Informati__IdKho__30F848ED" FromRole="Information" ToRole="Account" />
+    <NavigationProperty Name="Department" Relationship="Self.FK__Informati__IdKho__31EC6D26" FromRole="Information" ToRole="Department" />
+    <NavigationProperty Name="TopicOfLectures" Relationship="Self.FK__TopicOfLe__Progr__3A81B327" FromRole="Information" ToRole="TopicOfLecture" />
+  </EntityType>
+  <EntityType Name="Notification">
+    <Key>
+      <PropertyRef Name="IdNo" />
+    </Key>
+    <Property Name="IdNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DateCreat" Type="DateTime" Precision="0" />
+    <Property Name="PersonCreat" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="MetaTitle" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="FileName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="PointTable">
+    <Key>
+      <PropertyRef Name="IdP" />
+    </Key>
+    <Property Name="IdP" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdTy" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="NameP" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="File1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Type" Relationship="Self.FK__PointTabl__File1__36B12243" FromRole="PointTable" ToRole="Type" />
+    <NavigationProperty Name="TopicOfLectures" Relationship="Self.FK__TopicOfLect__IdP__3B75D760" FromRole="PointTable" ToRole="TopicOfLecture" />
+    <NavigationProperty Name="TopicOfStudents" Relationship="Self.FK__TopicOfSt__Progr__46E78A0C" FromRole="PointTable" ToRole="TopicOfStudent" />
+  </EntityType>
+  <EntityType Name="Statement">
+    <Key>
+      <PropertyRef Name="IdSt" />
+    </Key>
+    <Property Name="IdSt" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DateRp" Type="DateTime" Precision="0" />
+    <Property Name="Status" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="DetailStatementLes" Relationship="Self.FK__DetailStat__IdSt__403A8C7D" FromRole="Statements" ToRole="DetailStatementLe" />
+    <NavigationProperty Name="DetailStatementSts" Relationship="Self.FK__DetailStat__IdSt__4E88ABD4" FromRole="Statements" ToRole="DetailStatementSt" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="tbl_file">
+    <Key>
+      <PropertyRef Name="file_id" />
+    </Key>
+    <Property Name="file_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="file_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="file_ext" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="file_base6" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TopicOfLecture">
+    <Key>
+      <PropertyRef Name="IdTp" />
+    </Key>
+    <Property Name="IdTp" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IdLe" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="IdP" Type="Int32" Nullable="false" />
+    <Property Name="DateSt" Type="DateTime" Precision="0" />
+    <Property Name="Times" Type="Int32" />
+    <Property Name="Expense" Type="Double" />
+    <Property Name="Status" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Progress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="DetailStatementLes" Relationship="Self.FK__DetailSta__Statu__3F466844" FromRole="TopicOfLecture" ToRole="DetailStatementLe" />
+    <NavigationProperty Name="Extensions" Relationship="Self.FK__Extension__Times__5165187F" FromRole="TopicOfLecture" ToRole="Extension" />
+    <NavigationProperty Name="Information" Relationship="Self.FK__TopicOfLe__Progr__3A81B327" FromRole="TopicOfLecture" ToRole="Information" />
+    <NavigationProperty Name="PointTable" Relationship="Self.FK__TopicOfLect__IdP__3B75D760" FromRole="TopicOfLecture" ToRole="PointTable" />
+  </EntityType>
+  <EntityType Name="TopicOfStudent">
+    <Key>
+      <PropertyRef Name="IdTp" />
+    </Key>
+    <Property Name="IdTp" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="NameSt" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IdSV" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+    <Property Name="Emmail" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="IdP" Type="Int32" Nullable="false" />
+    <Property Name="DateSt" Type="DateTime" Precision="0" />
+    <Property Name="Times" Type="Int32" />
+    <Property Name="Expense" Type="Double" />
+    <Property Name="Status" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Progress" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="DetailStatementSts" Relationship="Self.FK__DetailSta__Statu__4D94879B" FromRole="TopicOfStudent" ToRole="DetailStatementSt" />
+    <NavigationProperty Name="PointTable" Relationship="Self.FK__TopicOfSt__Progr__46E78A0C" FromRole="TopicOfStudent" ToRole="PointTable" />
+  </EntityType>
+  <EntityType Name="Type">
+    <Key>
+      <PropertyRef Name="IdTy" />
+    </Key>
+    <Property Name="IdTy" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="PointTables" Relationship="Self.FK__PointTabl__File1__36B12243" FromRole="Type" ToRole="PointTable" />
+  </EntityType>
+  <Association Name="FK__Informati__IdKho__30F848ED">
+    <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
+    <End Role="Information" Type="Self.Information" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Account">
+        <PropertyRef Name="UserName" />
+      </Principal>
+      <Dependent Role="Information">
+        <PropertyRef Name="UserName" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Informati__IdKho__31EC6D26">
+    <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+    <End Role="Information" Type="Self.Information" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Department">
+        <PropertyRef Name="IdKhoa" />
+      </Principal>
+      <Dependent Role="Information">
+        <PropertyRef Name="IdKhoa" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__DetailSta__Statu__3F466844">
+    <End Role="TopicOfLecture" Type="Self.TopicOfLecture" Multiplicity="0..1" />
+    <End Role="DetailStatementLe" Type="Self.DetailStatementLe" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TopicOfLecture">
+        <PropertyRef Name="IdTp" />
+      </Principal>
+      <Dependent Role="DetailStatementLe">
+        <PropertyRef Name="IdTp" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__DetailStat__IdSt__403A8C7D">
+    <End Role="Statements" Type="Self.Statement" Multiplicity="0..1" />
+    <End Role="DetailStatementLe" Type="Self.DetailStatementLe" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Statements">
+        <PropertyRef Name="IdSt" />
+      </Principal>
+      <Dependent Role="DetailStatementLe">
+        <PropertyRef Name="IdSt" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__DetailSta__Statu__4D94879B">
+    <End Role="TopicOfStudent" Type="Self.TopicOfStudent" Multiplicity="0..1" />
+    <End Role="DetailStatementSt" Type="Self.DetailStatementSt" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TopicOfStudent">
+        <PropertyRef Name="IdTp" />
+      </Principal>
+      <Dependent Role="DetailStatementSt">
+        <PropertyRef Name="IdTp" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__DetailStat__IdSt__4E88ABD4">
+    <End Role="Statements" Type="Self.Statement" Multiplicity="0..1" />
+    <End Role="DetailStatementSt" Type="Self.DetailStatementSt" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Statements">
+        <PropertyRef Name="IdSt" />
+      </Principal>
+      <Dependent Role="DetailStatementSt">
+        <PropertyRef Name="IdSt" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Extension__Times__5165187F">
+    <End Role="TopicOfLecture" Type="Self.TopicOfLecture" Multiplicity="0..1" />
+    <End Role="Extension" Type="Self.Extension" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TopicOfLecture">
+        <PropertyRef Name="IdTp" />
+      </Principal>
+      <Dependent Role="Extension">
+        <PropertyRef Name="IdTp" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TopicOfLe__Progr__3A81B327">
+    <End Role="Information" Type="Self.Information" Multiplicity="0..1" />
+    <End Role="TopicOfLecture" Type="Self.TopicOfLecture" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Information">
+        <PropertyRef Name="IdLe" />
+      </Principal>
+      <Dependent Role="TopicOfLecture">
+        <PropertyRef Name="IdLe" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PointTabl__File1__36B12243">
+    <End Role="Type" Type="Self.Type" Multiplicity="0..1" />
+    <End Role="PointTable" Type="Self.PointTable" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Type">
+        <PropertyRef Name="IdTy" />
+      </Principal>
+      <Dependent Role="PointTable">
+        <PropertyRef Name="IdTy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TopicOfLect__IdP__3B75D760">
+    <End Role="PointTable" Type="Self.PointTable" Multiplicity="1" />
+    <End Role="TopicOfLecture" Type="Self.TopicOfLecture" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PointTable">
+        <PropertyRef Name="IdP" />
+      </Principal>
+      <Dependent Role="TopicOfLecture">
+        <PropertyRef Name="IdP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TopicOfSt__Progr__46E78A0C">
+    <End Role="PointTable" Type="Self.PointTable" Multiplicity="1" />
+    <End Role="TopicOfStudent" Type="Self.TopicOfStudent" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PointTable">
+        <PropertyRef Name="IdP" />
+      </Principal>
+      <Dependent Role="TopicOfStudent">
+        <PropertyRef Name="IdP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="nckh_dhdnEntities6" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Accounts" EntityType="Self.Account" />
+    <EntitySet Name="Departments" EntityType="Self.Department" />
+    <EntitySet Name="DetailStatementLes" EntityType="Self.DetailStatementLe" />
+    <EntitySet Name="DetailStatementSts" EntityType="Self.DetailStatementSt" />
+    <EntitySet Name="Extensions" EntityType="Self.Extension" />
+    <EntitySet Name="ImgObjs" EntityType="Self.ImgObj" />
+    <EntitySet Name="Information" EntityType="Self.Information" />
+    <EntitySet Name="Notifications" EntityType="Self.Notification" />
+    <EntitySet Name="PointTables" EntityType="Self.PointTable" />
+    <EntitySet Name="Statements" EntityType="Self.Statement" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="tbl_file" EntityType="Self.tbl_file" />
+    <EntitySet Name="TopicOfLectures" EntityType="Self.TopicOfLecture" />
+    <EntitySet Name="TopicOfStudents" EntityType="Self.TopicOfStudent" />
+    <EntitySet Name="Types" EntityType="Self.Type" />
+    <AssociationSet Name="FK__Informati__IdKho__30F848ED" Association="Self.FK__Informati__IdKho__30F848ED">
+      <End Role="Account" EntitySet="Accounts" />
+      <End Role="Information" EntitySet="Information" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Informati__IdKho__31EC6D26" Association="Self.FK__Informati__IdKho__31EC6D26">
+      <End Role="Department" EntitySet="Departments" />
+      <End Role="Information" EntitySet="Information" />
+    </AssociationSet>
+    <AssociationSet Name="FK__DetailSta__Statu__3F466844" Association="Self.FK__DetailSta__Statu__3F466844">
+      <End Role="TopicOfLecture" EntitySet="TopicOfLectures" />
+      <End Role="DetailStatementLe" EntitySet="DetailStatementLes" />
+    </AssociationSet>
+    <AssociationSet Name="FK__DetailStat__IdSt__403A8C7D" Association="Self.FK__DetailStat__IdSt__403A8C7D">
+      <End Role="Statements" EntitySet="Statements" />
+      <End Role="DetailStatementLe" EntitySet="DetailStatementLes" />
+    </AssociationSet>
+    <AssociationSet Name="FK__DetailSta__Statu__4D94879B" Association="Self.FK__DetailSta__Statu__4D94879B">
+      <End Role="TopicOfStudent" EntitySet="TopicOfStudents" />
+      <End Role="DetailStatementSt" EntitySet="DetailStatementSts" />
+    </AssociationSet>
+    <AssociationSet Name="FK__DetailStat__IdSt__4E88ABD4" Association="Self.FK__DetailStat__IdSt__4E88ABD4">
+      <End Role="Statements" EntitySet="Statements" />
+      <End Role="DetailStatementSt" EntitySet="DetailStatementSts" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Extension__Times__5165187F" Association="Self.FK__Extension__Times__5165187F">
+      <End Role="TopicOfLecture" EntitySet="TopicOfLectures" />
+      <End Role="Extension" EntitySet="Extensions" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TopicOfLe__Progr__3A81B327" Association="Self.FK__TopicOfLe__Progr__3A81B327">
+      <End Role="Information" EntitySet="Information" />
+      <End Role="TopicOfLecture" EntitySet="TopicOfLectures" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PointTabl__File1__36B12243" Association="Self.FK__PointTabl__File1__36B12243">
+      <End Role="Type" EntitySet="Types" />
+      <End Role="PointTable" EntitySet="PointTables" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TopicOfLect__IdP__3B75D760" Association="Self.FK__TopicOfLect__IdP__3B75D760">
+      <End Role="PointTable" EntitySet="PointTables" />
+      <End Role="TopicOfLecture" EntitySet="TopicOfLectures" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TopicOfSt__Progr__46E78A0C" Association="Self.FK__TopicOfSt__Progr__46E78A0C">
+      <End Role="PointTable" EntitySet="PointTables" />
+      <End Role="TopicOfStudent" EntitySet="TopicOfStudents" />
+    </AssociationSet>
+    <FunctionImport Name="sp_get_file_details" ReturnType="Collection(nckh_dhdnModel.sp_get_file_details_Result)">
+      <Parameter Name="file_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="sp_get_file_details_Result">
+    <Property Type="Int32" Name="file_id" Nullable="false" />
+    <Property Type="String" Name="file_name" Nullable="false" />
+    <Property Type="String" Name="file_ext" Nullable="false" />
+    <Property Type="String" Name="file_base6" Nullable="false" />
+  </ComplexType>
+</Schema>

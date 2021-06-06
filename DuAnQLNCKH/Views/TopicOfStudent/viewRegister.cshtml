@@ -1,0 +1,130 @@
+﻿
+@{
+    ViewBag.Title = "viewRegister";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+@model DuAnQLNCKH.Models.TopicOfStudent
+
+@using (Html.BeginForm("Register", "TopicOfStudent", FormMethod.Post, new { @class = "form - horizontal" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+        <div class="form-group">
+            Tền đề tài
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+         <div class="form-group">
+            Tền sinh viên
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NameSt, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NameSt, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            Mã sinh viên
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.IdSV, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.IdSV, "", new { @class = "text-danger" })
+            </div>
+        </div>
+         <div class="form-group">
+            Email
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Emmail, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Emmail, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            Loại đề tài
+            @if (ViewBag.listtype != null)
+            {
+
+                @Html.DropDownList("IdTy", ViewBag.listtype as SelectList, "--Lựa chọn loại--", new { @class = "form-control" })
+
+            }
+        </div>
+        <div class="form-group">
+
+            Chi tiết loại đề tài
+
+            @Html.DropDownList("IdP", new SelectList(" "), "--Lựa chọn chi tiết loại--", new { @class = "form-control", onchange = "detailtype();" })
+
+
+        </div>
+        <div class="form-group">
+            <input type="hidden" value="@ViewBag.idp" />
+        </div>
+        <div class="form-group">
+            Ngày bắt đầu
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DateSt, new { htmlAttributes = new { @class = "form-control", @readonly = "true" } })
+                @Html.ValidationMessageFor(model => model.DateSt, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            Thời gian thực hiện
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Times, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Times, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            Kinh phí
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Expense, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Expense, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input style="background:blue; font-weight:bold; color:white" type="submit" id="create" value="Đăng ký" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+<script>
+    $(document).ready(function () {
+        $("#IdTy").change(function () {
+            $.get("/TopicOfStudent/getTypeList", { IdTy: $("#IdTy").val() }, function (data) {
+                $("#IdP").empty();
+                $.each(data, function (index, row) {
+
+                    $("#IdP").append("<option id='IdPi' data-value=" + row.IdP + " value='" + row.IdP + "'>" + row.NameP + "</option>")
+
+                });
+                
+            });
+        });
+    });
+ 
+
+    $(document).ready(function () {
+        $('input[type=datetime]').datepicker({
+            dateFormat: "dd/mm/yy",
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "-60:+0"
+        });
+
+    });
+  
+</script>
+

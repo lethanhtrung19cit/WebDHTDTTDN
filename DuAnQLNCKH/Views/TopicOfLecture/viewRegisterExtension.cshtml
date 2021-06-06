@@ -1,0 +1,38 @@
+﻿@model IEnumerable<DuAnQLNCKH.Models.TopicOfLectureView>
+@{
+    ViewBag.Title = "viewRegisterExtension";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@foreach (var item in Model)
+{
+    <div>
+
+        Thời gian
+        @item.topicOfLecture.Times tháng
+
+    </div>
+
+    using (Html.BeginForm("registerExtension", "TopicOfLecture", FormMethod.Post))
+    {
+
+        <div class="form-group">
+
+            <input name="IdTp" id="IdTp" type="hidden" value="@item.topicOfLecture.IdTp"/>
+        </div>
+        <div class="form-group">
+            Thời gian gia hạn
+            <input id="Times" name="Times" type="text" />
+        </div>
+        <div class="form-group">
+            
+             <input style="background:blue; font-weight:bold; color:white" type="submit" value="Yêu cầu gia hạn" class="btn btn-default" onclick="yeucau();"/>
+            
+        </div>
+    }
+    
+}
+<script>
+    function yeucau() {
+        alert("Yêu cầu đã gửi đi");
+    }
+</script>

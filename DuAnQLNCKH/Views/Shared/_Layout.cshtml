@@ -1,0 +1,155 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+
+
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <link href="~/Content/css/editInfo.css" rel="stylesheet" />
+    <link href="~/Content/css/tabcontrol.css" rel="stylesheet" />
+
+    <link href="~/Content/css/sb-admin-21.min.css" rel="stylesheet" />
+    <link href="~/Content/css/sb-admin-21.css" rel="stylesheet" />
+    
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+    <link href="~/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    
+    <script src="~/assets/client/js/jquery-1.11.3.min.js"></script>
+    <script src="~/assets/client/js/jquery-ui.js"></script>
+    <script src="~/assets/client/js/bootstrap.min.js"></script>
+
+    <script src="~/Scripts/js/tabcontrol.js"></script>
+
+
+</head>
+<body>
+    @*<img class="fixNav1" src="~/images/header2.jpg" style="width:1350px; height:200px" />
+        <nav id="fixNav">
+            <ul>
+                <li style="margin-left:65px"><img class="fixNav1" src="~/images/logotruong1.jpg" style="width:160px; height:60px" /></li>
+                <li style="margin-left:15px">@Html.ActionLink("Đề tài", "Index", "DeTaiGV")</li>
+                <li>@Html.ActionLink("Thông báo", "About", "Home")</li>
+                <li>@Html.ActionLink("Thông tin cá nhân", "Contact", "Home")</li>
+            </ul>
+        </nav>*@
+
+    <div class="logo-header">
+        <a class="logo-header" href="#"><img src="~/images/logo.jpg" /></a>
+        <h4 class="logo-header">
+            BỘ VĂN HÓA THỂ THAO VÀ DU LỊCH<br />
+            TRƯỜNG ĐẠI HỌC THỂ DỤC THỂ THAO<br />
+            PHÒNG NGHIÊN CỨU KHOA HỌC
+        </h4>
+
+    </div>
+
+
+    <!-- Topbar -->
+    <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+        <!-- Sidebar Toggle (Topbar) -->
+        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+            <i class="fa fa-bars"></i>
+        </button>
+        <li class="homebar">
+
+            @Html.ActionLink("TRANG CHỦ", "Index", "TopicOfLecture", null, new { @class = "fas fa-home" })
+
+
+        </li>
+        <li class="homebar">
+            <a href="https://drive.google.com/drive/folders/1CewXnB4UDHuJh4P8DLt_VYHtRibZh38s">
+                <i class="fab fa-wpforms"></i>
+                BIỂU MẪU
+            </a>
+        </li>
+        <li class="homebar">
+
+
+            @Html.ActionLink("LỊCH BÁO CÁO", "Index", "Report", null, new { @class = "far fa-calendar-alt" })
+        </li>
+
+        @*<li class="homebar">
+            <a href="">
+                <i class="fas fa-table"></i>
+                BẢNG ĐIỂM
+            </a>
+        </li>*@
+        <li class="homebar">
+            @Html.ActionLink("THÔNG BÁO", "Index", "Notification", null, new { @class = "far fa-calendar-alt" })
+        </li>
+        <li class="homebar">
+            @{
+                string session = Session["UserName"] as string;
+
+            }
+            @if (session.ToString().Equals("null"))
+            {
+                <a class="fa fa-user" href="@Url.Action("Index", "Login")">ĐĂNG NHẬP</a>
+
+
+                //Html.ActionLink(session.ToString(), "Index", "Login");
+            }
+            
+
+        </li>
+        <!-- Topbar Search -->
+        <!-- Topbar Navbar -->
+
+
+    </nav>
+    <!-- End of Topbar -->
+    <!-- Begin Page Content -->
+    @{
+        string access = Session["Acess"] as string;
+
+    }
+    @if (access.ToString().Equals("1"))
+    {
+        @Html.Partial("_LayoutLeft")
+    }
+    else if (access.ToString().Equals("2"))
+    {
+            @Html.Partial("_LayoutLecture")
+    }
+    else
+    {
+        @Html.Partial("LayoutGeneral")
+    }
+    <div style="width:800px; float:right; margin-right:240px">
+        @RenderBody()
+    </div>
+   
+    @*    @RenderPage("layoutleft.cshtml")*@
+
+
+
+
+
+    <script src="~/assets/admin/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/assets/client/js/move-top.js"></script>
+    <script src="~/assets/client/js/jquery.easing.js"></script>
+
+    <script src="~/vendor/jquery/jquery.min.js"></script>
+    <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="~/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="~/js/sb-admin-2.min.js"></script>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/themes/base/jquery-ui")
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+</body>
+</html>
